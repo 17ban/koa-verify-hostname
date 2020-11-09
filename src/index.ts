@@ -2,12 +2,18 @@ import Application = require("koa")
 import compose = require("koa")
 
 function match(str: string, matcher: string | RegExp): boolean {
-    if(str === matcher) return true
-    else if(matcher?.constructor?.name === 'RegExp') {
-        if((<RegExp>matcher).exec(str)) return true
-        else return false
+    if(str === matcher) {
+        return true
     }
-    else return false
+    else if(matcher instanceof RegExp) {
+        if(matcher.exec(str))
+            return true
+        else 
+            return false
+    }
+    else {
+        return false
+    }
 }
 
 
@@ -25,16 +31,16 @@ function verifyHostname(
     ) => {
         let reqHostname = context?.request?.hostname
         let isValid = false
-        if(hostname?.constructor?.name === 'Array') {
+        if(hostname instanceof Array) {
             for(let name of hostname) {
-                let isMatch = match(reqHostname, name)
-                if(isMatch) {
-                    isValid = isMatch
+                isValid = match(reqHostname, name)
+                if(isValid) {
                     break
                 }
             }
-        } else {
-            isValid = match(reqHostname, <string>hostname)
+        }
+        else {
+            isValid = match(reqHostname, hostname)
         }
 
         if(!middleware) middleware = async (
