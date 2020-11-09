@@ -1,7 +1,7 @@
 {
   "name": "koa-verify-hostname",
   "version": "1.0.2",
-  "description": "A Koa middleware. Make your Koa application only accessed by designated hostnames.",
+  "description": "A Koa middleware that makes your Koa application can only be accessed by specific hostnames.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
