@@ -9,28 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 function match(str, matcher) {
-    var _a;
-    if (str === matcher)
+    if (str === matcher) {
         return true;
-    else if (((_a = matcher === null || matcher === void 0 ? void 0 : matcher.constructor) === null || _a === void 0 ? void 0 : _a.name) === 'RegExp') {
+    }
+    else if (matcher instanceof RegExp) {
         if (matcher.exec(str))
             return true;
         else
             return false;
     }
-    else
+    else {
         return false;
+    }
 }
 function verifyHostname(hostname, middleware) {
     return (context, next) => __awaiter(this, void 0, void 0, function* () {
-        var _a, _b;
+        var _a;
         let reqHostname = (_a = context === null || context === void 0 ? void 0 : context.request) === null || _a === void 0 ? void 0 : _a.hostname;
         let isValid = false;
-        if (((_b = hostname === null || hostname === void 0 ? void 0 : hostname.constructor) === null || _b === void 0 ? void 0 : _b.name) === 'Array') {
+        if (hostname instanceof Array) {
             for (let name of hostname) {
-                let isMatch = match(reqHostname, name);
-                if (isMatch) {
-                    isValid = isMatch;
+                isValid = match(reqHostname, name);
+                if (isValid) {
                     break;
                 }
             }
